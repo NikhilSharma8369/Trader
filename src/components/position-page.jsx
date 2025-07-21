@@ -3,7 +3,7 @@ import React from 'react'
 export const Positions = () => {
   return (
     <>
-      <table className="w-full h-[190px] relative text-left text-white">
+      <table className="w-full h-[170px] relative text-left text-white">
               <thead className="text-zinc-400 border-b border-zinc-700">
                 <tr>
                   <th className="py-2">Symbol</th>

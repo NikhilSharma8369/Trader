@@ -1,14 +1,19 @@
 import LoginForm from "./LoginForm";
+import logo from "../assets/Logo.svg";
+import leftlogo from "../assets/LeftLogo.svg";
+
 
 export const LoginPage = () => {
   return (
     <div className="min-h-screen flex    text-white">
        
-        {/* Left Side - Branding */}
+        {/* Left Side  */}
         <div className="flex-[45%] p-8 flex flex-col items-center justify-center bg-[#131313]">
-          <div className="w-[300px]"><div className="flex items-center space-x-2 mb-6">
+          <div className="w-[300px]"><div className="flex items-center space-x-2 mb-6"> 
              
-            <h1 className="text-2xl font-bold">Finovo <span className="text-sm font-normal text-gray-400">PRIME</span></h1>
+          <div className="flex items-center space-x-2 mb-6">
+            <img src={logo} alt="Logo" className="h-10 w-auto" />
+          </div>
           </div>
           <h2 className="text-3xl font-semibold mb-4">Next-Generation Trading Platform for Faster Execution!</h2>
           <p className="text-gray-400">
@@ -26,6 +31,7 @@ export const LoginPage = () => {
         </div>
        
     </div>
+    
   );
 };
  

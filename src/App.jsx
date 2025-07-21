@@ -4,6 +4,7 @@ import TradingDashboard from "./components/DashboardPage";
 import { Positions } from "./components/position-page";
 import { Pending } from "./components/PendingPage";
 import { History } from "./components/HistoryPage";
+import MarketPage from "./pages/MarketPage";
 
 const App = () => {
   return (
@@ -15,8 +16,13 @@ const App = () => {
         <Route  path="/dashboard/pending" element={<Pending />} />
         <Route  path="/dashboard/history" element={<History/>} />
       </Route>
+      <Route path="/market" element={<MarketPage />} />
     </Routes>
   );
 };
+
+
+
+
 
 export default App;
