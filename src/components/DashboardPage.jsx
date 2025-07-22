@@ -1,34 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
+import NewOrder from "./NewOrder";
 import {
-  ChevronDown,
-  Clock,
-  GalleryHorizontal,
-  Layers,
-  LayoutGrid,
-  ListChecks,
-  ListPlus,
-  MousePointerClick,
-  Square,
-  Wifi,
-  Plus,
-  Calculator,
-  ExternalLink,
-  LineChart,
-  AlignVerticalJustifyCenter,
-  BarChart3,
-  FileText,
-  Maximize2,
-  EyeOff,
-  Eye,
-  Star,
-  Grid2X2,
-  SortAsc,
-  Columns2
+  ChevronDown, Clock, GalleryHorizontal, Layers, LayoutGrid, ListChecks,
+  ListPlus, MousePointerClick, Square, Wifi, Plus, Calculator, ExternalLink,
+  LineChart, AlignVerticalJustifyCenter, BarChart3, FileText, Maximize2,
+  EyeOff, Eye, Star, Grid2X2, SortAsc, Columns2
 } from "lucide-react";
 import { Link, Outlet, NavLink, useLocation } from "react-router-dom";
 
 export default function TradingDashboard() {
   const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
+  const [activeTab, setActiveTab] = useState("newOrder");
+
+  const openModal = (tab = "newOrder") => {
+    setActiveTab(tab);
+    setShowModal(true);
+  };
+
   return (
     <div className="flex max-h-screen text-white bg-black border border-zinc-800 overflow-hidden">
       {/* Sidebar */}
@@ -43,15 +32,14 @@ export default function TradingDashboard() {
         </div>
         <div className="space-y-6">
           <Wifi className="w-5 h-5" />
-          <LayoutGrid className="size-5 " />
+          <LayoutGrid className="size-5" />
           <Square className="size-5 text-black" fill="zinc-700" />
           <span className="text-[10px] px-1">En</span>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main */}
       <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Top Section */}
         <div className="flex flex-1 overflow-hidden">
           <div className="flex-1 flex-col">
             <div className="w-full h-10 bg-zinc-900 border-b border-b-zinc-700"></div>
@@ -113,14 +101,12 @@ export default function TradingDashboard() {
           </div>
         </div>
 
-        {/* Positions Section */}
+        {/* Position Panel */}
         <div className="w-full max-h-full text-xs bg-zinc-900 border-t border-zinc-800">
           <div className="flex px-4 pt-2 pb-1 justify-between border-b border-zinc-700">
             <div className="text-sm flex space-x-6">
               <div className="font-medium pb-1">
-                <Link to="/dashboard" className={location.pathname === "/dashboard" ? "text-blue-600 font-bold" : "text-gray-700"}>
-                  Position
-                </Link>
+                <Link to="/dashboard" className={location.pathname === "/dashboard" ? "text-blue-600 font-bold" : "text-gray-700"}>Position</Link>
               </div>
               <div className="text-zinc-400">
                 <NavLink to="/dashboard/pending" className={({ isActive }) => (isActive ? "text-blue-600 font-bold" : "text-gray-700")}>Pending</NavLink>
@@ -144,43 +130,73 @@ export default function TradingDashboard() {
         </div>
       </div>
 
-      {/* Quote Table with Context Menu */}
-      <QuoteTable />
+      {/* Quote Table */}
+      <QuoteTable onNewOrder={() => openModal("newOrder")} onOpenPMC={() => openModal("pmc")} />
+
+      {showModal && <NewOrder onClose={() => setShowModal(false)} initialTab={activeTab} />}
     </div>
   );
 }
 
-const QuoteTable = () => {
+
+const QuoteTable = ({ onNewOrder, onOpenPMC }) => {
   const rows = Array.from({ length: 9 });
   const [menuPos, setMenuPos] = useState(null);
+  const [hideMenuOptions, setHideMenuOptions] = useState(false);
+  const [hideDataRows, setHideDataRows] = useState(false);
   const tableRef = useRef();
 
-  const handleRightClick = (e) => {
-    e.preventDefault();
-    const bounds = tableRef.current.getBoundingClientRect();
-    const x = e.clientX - bounds.left;
-    const y = e.clientY - bounds.top;
-    const rightOffset = bounds.right - e.clientX;
-    const leftOffset = e.clientX - bounds.left;
-    const adjustedX = rightOffset < 200 ? leftOffset - 200 : leftOffset;
-    setMenuPos({ x: adjustedX, y });
-  };
+const handleRightClick = (e) => {
+  e.preventDefault();
+  const bounds = tableRef.current.getBoundingClientRect();
+  const x = e.clientX - bounds.left;
+  const y = e.clientY - bounds.top;
+  const rightOffset = bounds.right - e.clientX;
+  const leftOffset = e.clientX - bounds.left;
+  const adjustedX = rightOffset < 200 ? leftOffset - 200 : leftOffset;
+
+  
+  setHideMenuOptions(false);  
+  setMenuPos({ x: adjustedX, y });
+};
+
 
   const handleClose = () => setMenuPos(null);
 
   const menuOptions = [
-    { label: "New Order", icon: <Plus className="w-4 h-4 mr-2" /> },
-    { label: "Profit/Margin Calculator", icon: <Calculator className="w-4 h-4 mr-2" /> },
+    { label: "New Order", icon: <Plus className="w-4 h-4 mr-2" />, action: onNewOrder },
+    { label: "Profit/Margin Calculator", icon: <Calculator className="w-4 h-4 mr-2" />, action: onOpenPMC },
     { label: "Open in new tab", icon: <ExternalLink className="w-4 h-4 mr-2" /> },
     { label: "Tick Chart", icon: <LineChart className="w-4 h-4 mr-2" /> },
     { label: "Market Depth", icon: <AlignVerticalJustifyCenter className="w-4 h-4 mr-2" /> },
     { label: "Options Board", icon: <BarChart3 className="w-4 h-4 mr-2" /> },
     { label: "Specification", icon: <FileText className="w-4 h-4 mr-2" /> },
     { label: "Popup Prices", icon: <Maximize2 className="w-4 h-4 mr-2" /> },
-    { label: "Hide", icon: <EyeOff className="w-4 h-4 mr-2" /> },
-    { label: "Hide All", icon: <EyeOff className="w-4 h-4 mr-2" /> },
+    {
+      label: "Hide",
+      icon: <EyeOff className="w-4 h-4 mr-2" />,
+      action: () => {
+        setHideMenuOptions(true);     
+        setHideDataRows(false);      
+      },
+    },
+    {
+      label: "Hide All",
+      icon: <EyeOff className="w-4 h-4 mr-2" />,
+      action: () => {
+        setHideMenuOptions(true);     
+        setHideDataRows(true);        
+      },
+    },
+    {
+      label: "Show All",
+      icon: <Eye className="w-4 h-4 mr-2" />,
+      action: () => {
+        setHideMenuOptions(false);
+        setHideDataRows(false);
+      },
+    },
     { label: "Show Favorites", icon: <Star className="w-4 h-4 mr-2" /> },
-    { label: "Show All", icon: <Eye className="w-4 h-4 mr-2" /> },
     { label: "Symbols", icon: <Grid2X2 className="w-4 h-4 mr-2" /> },
     { label: "Sort", icon: <SortAsc className="w-4 h-4 mr-2" /> },
     { label: "Columns", icon: <Columns2 className="w-4 h-4 mr-2" /> },
@@ -195,42 +211,48 @@ const QuoteTable = () => {
   return (
     <div
       ref={tableRef}
-      className="relative bg-zinc-900 text-white text-sm p-4 border-l border-l-zinc-700 overflow-hidden"
+      className="relative bg-zinc-900 text-white text-sm p-4 border-l border-l-zinc-700 overflow-hidden w-[300px] transition-all duration-300"
       onContextMenu={handleRightClick}
     >
-      <table className="w-full text-left  mt-6">
+      
+      <table className="w-full text-left mt-6 transition-all duration-300 cursor-pointer">
         <thead>
-          <tr className="text-gray-300 text-sm">
+          <tr className="text-gray-300 text-sm" >
             <th className="px-2 pb-2">Symbol</th>
-            <th className="px-2 pb-2 text-right">Bid</th>
-            <th className="px-2 pb-2 text-right">Ask</th>
+            <th className="px-2 pb-2">Bid</th>
+            <th className="px-2 pb-2">Ask</th> 
           </tr>
         </thead>
         <tbody>
-          {rows.map((_, index) => (
-            <tr key={index} className="border-b border-b-zinc-600 cursor-pointer hover:bg-zinc-800">
-              <td className="px-2 py-2 align-top">
-                <div className="text-xs text-gray-400">13.66</div>
-                <div className="flex items-center gap-1 font-semibold">
-                  <span>XAUUSD</span>
-                  <span className="text-green-400 text-xs">📈</span>
-                  <span className="text-xs text-gray-400">17</span>
-                </div>
-              </td>
-              <td className={`px-2 py-2 align-top text-right font-semibold ${index % 2 === 0 ? "text-green-400" : "text-red-500"}`}>
-                3352.<span className="text-[15px]">34</span>
-                <div className="text-xs text-gray-400">L:1331.34</div>
-              </td>
-              <td className="px-2 py-2 align-top text-right font-semibold text-white">
-                3352.<span className="text-[15px]">34</span>
-                <div className="text-xs text-gray-400">L:1332.30</div>
-              </td>
-            </tr>
-          ))}
+          {!hideDataRows &&
+            rows.map((_, index) => (
+              <tr
+                key={index}
+                className="border-b border-zinc-700 hover:bg-zinc-800 transition-all duration-300"
+              >
+                <td className="px-2 py-2 align-top">
+                  <div className="text-xs text-gray-400">13.66</div>
+                  <div className="flex items-center gap-1 font-semibold">
+                    <span>XAUUSD</span>
+                    <span className="text-green-400 text-xs">📈</span>
+                    <span className="text-xs text-gray-400">17</span>
+                  </div>
+                </td>
+                <td className={`px-2 py-2 align-top text-right font-semibold ${index % 2 === 0 ? "text-green-400" : "text-red-500"}`}>
+                  3352.<span className="text-[15px]">34</span>
+                  <div className="text-xs text-gray-400">L:1331.34</div>
+                </td>
+                <td className="px-2 py-2 align-top text-right font-semibold text-white">
+                  3352.<span className="text-[15px]">34</span>
+                  <div className="text-xs text-gray-400">L:1332.30</div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
 
-      {menuPos && (
+      
+      {!hideMenuOptions && menuPos && (
         <div
           className="absolute z-50 bg-zinc-900 text-white border border-zinc-700 rounded shadow-md w-64 text-sm"
           style={{ top: `${menuPos.y}px`, left: `${menuPos.x}px` }}
@@ -239,7 +261,10 @@ const QuoteTable = () => {
             <div
               key={i}
               className="flex items-center px-4 py-2 hover:bg-zinc-800 cursor-pointer"
-              onClick={() => handleClose()}
+              onClick={() => {
+                opt.action?.();
+                handleClose();
+              }}
             >
               {opt.icon}
               {opt.label}

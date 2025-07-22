@@ -1,4 +1,4 @@
-// src/components/ContextMenu.jsx
+
 import React from "react";
 
 const ContextMenu = ({ x, y, options, onClose }) => {

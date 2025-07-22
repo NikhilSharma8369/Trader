@@ -9,7 +9,7 @@ export const Pending = () => {
     credit: 10000.0,
   };
 
-  // Calculate margin level as (Equity / Margin) * 100
+ 
   const marginLevel =
     accountStats.margin !== 0
       ? ((accountStats.equity / accountStats.margin) * 100).toFixed(2) + '%'

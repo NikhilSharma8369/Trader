@@ -39,7 +39,7 @@ export const History = () => {
             <td className="px-4 py-2  text-right">0.00</td>
             <td className="px-4 py-2  text-right font-medium">10,000.00</td>
           </tr>
-          {/* Footer row */}
+          {/* Footer */}
           <tr className="bg-zinc-900 font-semibold">
             <td className="px-4 py-2" colSpan={14}>
               <div className="flex flex-wrap justify-start gap-x-6">
