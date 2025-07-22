@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import NewOrder from "./NewOrder";
+import TradingViewWidget from "../components/TradingViewWidget";
 import {
   ChevronDown, Clock, GalleryHorizontal, Layers, LayoutGrid, ListChecks,
   ListPlus, MousePointerClick, Square, Wifi, Plus, Calculator, ExternalLink,
@@ -41,9 +42,9 @@ export default function TradingDashboard() {
       {/* Main */}
       <div className="flex flex-col flex-1 overflow-hidden">
         <div className="flex flex-1 overflow-hidden">
-          <div className="flex-1 flex-col">
-            <div className="w-full h-10 bg-zinc-900 border-b border-b-zinc-700"></div>
-            <div className="border-r border-zinc-800"></div>
+          {/* Chart Section */}
+          <div className="flex-1 bg-black">
+            <TradingViewWidget />
           </div>
 
           {/* Trading Panel */}
@@ -52,9 +53,7 @@ export default function TradingDashboard() {
               <div className="text-sm font-medium">XAUUSD</div>
               <div className="flex justify-between text-[13px] text-zinc-500">
                 <h1>Gold & Dollar</h1>
-                <h1 className="flex gap-x-1">
-                  Metal <ChevronDown className="size-3" />
-                </h1>
+                <h1 className="flex gap-x-1">Metal <ChevronDown className="size-3" /></h1>
               </div>
             </div>
 
@@ -131,13 +130,12 @@ export default function TradingDashboard() {
       </div>
 
       {/* Quote Table */}
-      <QuoteTable onNewOrder={() => openModal("newOrder")} onOpenPMC={() => openModal("pmc")} />
+      <QuoteTable onNewOrder={() => openModal("newOrder") } onOpenPMC={() => openModal("pmc")} />
 
       {showModal && <NewOrder onClose={() => setShowModal(false)} initialTab={activeTab} />}
     </div>
   );
 }
-
 
 const QuoteTable = ({ onNewOrder, onOpenPMC }) => {
   const rows = Array.from({ length: 9 });
@@ -146,20 +144,18 @@ const QuoteTable = ({ onNewOrder, onOpenPMC }) => {
   const [hideDataRows, setHideDataRows] = useState(false);
   const tableRef = useRef();
 
-const handleRightClick = (e) => {
-  e.preventDefault();
-  const bounds = tableRef.current.getBoundingClientRect();
-  const x = e.clientX - bounds.left;
-  const y = e.clientY - bounds.top;
-  const rightOffset = bounds.right - e.clientX;
-  const leftOffset = e.clientX - bounds.left;
-  const adjustedX = rightOffset < 200 ? leftOffset - 200 : leftOffset;
+  const handleRightClick = (e) => {
+    e.preventDefault();
+    const bounds = tableRef.current.getBoundingClientRect();
+    const x = e.clientX - bounds.left;
+    const y = e.clientY - bounds.top;
+    const rightOffset = bounds.right - e.clientX;
+    const leftOffset = e.clientX - bounds.left;
+    const adjustedX = rightOffset < 200 ? leftOffset - 200 : leftOffset;
 
-  
-  setHideMenuOptions(false);  
-  setMenuPos({ x: adjustedX, y });
-};
-
+    setHideMenuOptions(false);
+    setMenuPos({ x: adjustedX, y });
+  };
 
   const handleClose = () => setMenuPos(null);
 
@@ -176,16 +172,16 @@ const handleRightClick = (e) => {
       label: "Hide",
       icon: <EyeOff className="w-4 h-4 mr-2" />,
       action: () => {
-        setHideMenuOptions(true);     
-        setHideDataRows(false);      
+        setHideMenuOptions(true);
+        setHideDataRows(false);
       },
     },
     {
       label: "Hide All",
       icon: <EyeOff className="w-4 h-4 mr-2" />,
       action: () => {
-        setHideMenuOptions(true);     
-        setHideDataRows(true);        
+        setHideMenuOptions(true);
+        setHideDataRows(true);
       },
     },
     {
@@ -214,13 +210,12 @@ const handleRightClick = (e) => {
       className="relative bg-zinc-900 text-white text-sm p-4 border-l border-l-zinc-700 overflow-hidden w-[300px] transition-all duration-300"
       onContextMenu={handleRightClick}
     >
-      
       <table className="w-full text-left mt-6 transition-all duration-300 cursor-pointer">
         <thead>
-          <tr className="text-gray-300 text-sm" >
+          <tr className="text-gray-300 text-sm">
             <th className="px-2 pb-2">Symbol</th>
             <th className="px-2 pb-2">Bid</th>
-            <th className="px-2 pb-2">Ask</th> 
+            <th className="px-2 pb-2">Ask</th>
           </tr>
         </thead>
         <tbody>
@@ -251,7 +246,6 @@ const handleRightClick = (e) => {
         </tbody>
       </table>
 
-      
       {!hideMenuOptions && menuPos && (
         <div
           className="absolute z-50 bg-zinc-900 text-white border border-zinc-700 rounded shadow-md w-64 text-sm"
