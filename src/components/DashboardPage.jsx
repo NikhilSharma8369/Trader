@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import NewOrder from "./NewOrder";
 import TradingViewWidget from "../components/TradingViewWidget";
+import TopMenu from './TopMenu';
+
+
+
+
 import {
   ChevronDown, Clock, GalleryHorizontal, Layers, LayoutGrid, ListChecks,
   ListPlus, MousePointerClick, Square, Wifi, Plus, Calculator, ExternalLink,
@@ -13,6 +18,9 @@ export default function TradingDashboard() {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
   const [activeTab, setActiveTab] = useState("newOrder");
+ 
+
+  
 
   const openModal = (tab = "newOrder") => {
     setActiveTab(tab);
@@ -20,7 +28,7 @@ export default function TradingDashboard() {
   };
 
   return (
-    <div className="flex max-h-screen text-white bg-black border border-zinc-800 overflow-hidden">
+    <div className="flex h-screen text-white bg-black border border-zinc-800 overflow-hidden">
       {/* Sidebar */}
       <div className="w-16 bg-zinc-900 flex flex-col items-center justify-between py-4 border-r border-zinc-800">
         <div className="space-y-6 mt-8">
@@ -125,7 +133,7 @@ export default function TradingDashboard() {
           </div>
           <div className="px-4 pb-2 overflow-x-auto">
             <Outlet />
-          </div>
+           </div>
         </div>
       </div>
 
@@ -207,9 +215,11 @@ const QuoteTable = ({ onNewOrder, onOpenPMC }) => {
   return (
     <div
       ref={tableRef}
-      className="relative bg-zinc-900 text-white text-sm p-4 border-l border-l-zinc-700 overflow-hidden w-[300px] transition-all duration-300"
+      className="relative bg-zinc-900 text-white text-sm p-4 border-l border-l-zinc-700 overflow-visible w-[300px] transition-all duration-300"
       onContextMenu={handleRightClick}
     >
+
+      <TopMenu />
       <table className="w-full text-left mt-6 transition-all duration-300 cursor-pointer">
         <thead>
           <tr className="text-gray-300 text-sm">

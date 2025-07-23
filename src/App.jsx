@@ -11,12 +11,12 @@ const App = () => {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/dashboard" element={<TradingDashboard />}>
-        {/* index means this will show when path is exactly /dashboard */}
         <Route index element={<Positions />} />
         <Route  path="/dashboard/pending" element={<Pending />} />
         <Route  path="/dashboard/history" element={<History/>} />
       </Route>
       <Route path="/market" element={<MarketPage />} />
+      
     </Routes>
   );
 };
