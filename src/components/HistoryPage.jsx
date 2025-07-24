@@ -1,43 +1,49 @@
-import React from 'react';
+import React, { useState, useRef } from "react";
+import { HistoryMenu } from "../components/HistoryMenu";
 
 export const History = () => {
+  const [menuPosition, setMenuPosition] = useState(null);
+  const [showSubmenu, setShowSubmenu] = useState(false);
+
+  const handleRightClick = (e) => {
+    e.preventDefault();
+    setMenuPosition({ x: e.pageX, y: e.pageY });
+  };
+
+  const closeMenu = () => {
+    setMenuPosition(null);
+    setShowSubmenu(false);
+  };
+
   return (
-    <div className="overflow-x-auto p-4">
-      <table className="min-w-full  text-sm text-left">
+    <div className="overflow-x-auto p-4" onContextMenu={handleRightClick}>
+      <table className="min-w-full text-sm text-left">
         <thead className="bg-zinc-900 text-white font-medium">
           <tr>
-            <th className="px-4 py-2 ">Open Time</th>
-            <th className="px-4 py-2 ">Symbol</th>
-            <th className="px-4 py-2 ">Ticket</th>
-            <th className="px-4 py-2 ">Type</th>
-            <th className="px-4 py-2 ">Volume</th>
-            <th className="px-4 py-2 ">Open Price</th>
-            <th className="px-4 py-2 ">S/L</th>
-            <th className="px-4 py-2 ">T/P</th>
-            <th className="px-4 py-2 ">Close Time</th>
-            <th className="px-4 py-2 ">Price</th>
-            <th className="px-4 py-2 ">Commission</th>
-            <th className="px-4 py-2 ">Fee</th>
-            <th className="px-4 py-2 ">Swap</th>
-            <th className="px-4 py-2 ">Profit</th>
+            {[
+              "Open Time", "Symbol", "Ticket", "Type", "Volume", "Open Price",
+              "S/L", "T/P", "Close Time", "Price", "Commission", "Fee", "Swap", "Profit"
+            ].map((header) => (
+              <th key={header} className="px-4 py-2">{header}</th>
+            ))}
           </tr>
         </thead>
         <tbody className="text-white">
           <tr className="bg-zinc-900">
-            <td className="px-4 py-2 ">2025.07.1...</td>
-            <td className="px-4 py-2  text-white">Bonus</td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2 "></td>
-            <td className="px-4 py-2  text-right">0.00</td>
-            <td className="px-4 py-2  text-right">0.00</td>
-            <td className="px-4 py-2  text-right">0.00</td>
-            <td className="px-4 py-2  text-right font-medium">10,000.00</td>
+            <td className="px-4 py-2">2025.07.1...</td>
+            <td className="px-4 py-2 text-white">Bonus</td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2 text-right">0.00</td>
+            <td className="px-4 py-2 text-right">0.00</td>
+            <td className="px-4 py-2 text-right">0.00</td>
+            <td className="px-4 py-2 text-right font-medium">10,000.00</td>
           </tr>
           {/* Footer */}
           <tr className="bg-zinc-900 font-semibold">
@@ -53,6 +59,16 @@ export const History = () => {
           </tr>
         </tbody>
       </table>
+
+      {menuPosition && (
+        <HistoryMenu
+          x={menuPosition.x}
+          y={menuPosition.y}
+          onClose={closeMenu}
+          onColumnHover={setShowSubmenu}
+          showSubmenu={showSubmenu}
+        />
+      )}
     </div>
   );
 };

@@ -24,7 +24,7 @@ export default function SymbolMenu({ pos, onClose }) {
           Columns <span className="ml-2">▶</span>
 
           {showSubmenu && (
-            <ul className="absolute top-[-10] left-full  ml-2 bg-zinc-800 shadow-md rounded w-40 z-50 border border-gray-200">
+            <ul className="absolute -top-[150px] left-full  ml-2 bg-zinc-800 shadow-md rounded w-40 z-50 border border-gray-200">
               {["Ticket", "Time", "Swap", "Profit", "Comment"].map((item) => (
                 <li
                   key={item}
