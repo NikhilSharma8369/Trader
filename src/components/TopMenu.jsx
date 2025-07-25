@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, Languages } from "lucide-react";
-import { useTheme } from "../context/ThemeContext"; // ✅ Correct import
+import { useTheme } from "../context/ThemeContext"; 
 
 const languages = [
   "English", "Türkçe", "Bahasa Indonesia", "Bahasa Melayu",
@@ -10,7 +10,7 @@ const languages = [
 export default function TopMenu({ username = "BMP", userId = "280233" }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme(); // ✅ correct usage
+  const { theme, toggleTheme } = useTheme(); 
 
   const toggleMainMenu = () => {
     setMenuOpen((prev) => {
@@ -44,7 +44,7 @@ export default function TopMenu({ username = "BMP", userId = "280233" }) {
               {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
             </li>
 
-            {/* Language dropdown */}
+           
             <li
               className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer flex justify-between items-center relative"
               onClick={() => setLangOpen(!langOpen)}

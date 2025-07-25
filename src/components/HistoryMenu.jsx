@@ -9,7 +9,7 @@ export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu }) => {
 
   const columnOptions = ["Ticket", "Open Time", "Close Time", "Commission", "Fee", "Swap", "Comment"];
 
-  // Estimate height and adjust to prevent screen overflow
+ 
   const menuHeight = 480;
   const adjustedY = y - menuHeight < 10 ? 10 : y - menuHeight;
 

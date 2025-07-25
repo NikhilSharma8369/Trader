@@ -9,28 +9,36 @@ function TradingViewWidget() {
     const containerEl = container.current;
     containerEl.innerHTML = '';
 
-    const script = document.createElement('script');
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
-    script.type = 'text/javascript';
+    const script = document.createElement("script");
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.type = "text/javascript";
     script.async = true;
+    script.innerHTML = `
+      {
+        "allow_symbol_change": true,
+        "calendar": false,
+        "details": false,
+        "hide_side_toolbar": false,
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "hide_volume": false,
+        "hotlist": false,
+        "interval": "D",
+        "locale": "en",
+        "save_image": true,
+        "style": "1",
+        "symbol": "NASDAQ:AAPL",
+        "theme": "${theme}",
+        "timezone": "Etc/UTC",
+        "backgroundColor": "${theme === 'dark' ? '#0f0f0f' : '#ffffff'}",
+        "gridColor": "rgba(46, 46, 46, 0.06)",
+        "watchlist": [],
+        "withdateranges": true,
+        "compareSymbols": [],
+        "studies": [],
+        "autosize": true
+      }`;
 
-    const config = {
-      allow_symbol_change: true,
-      autosize: true,
-      symbol: 'NASDAQ:AAPL',
-      interval: 'D',
-      timezone: 'Etc/UTC',
-      theme: theme === 'dark' ? 'dark' : 'light',
-      style: '1',
-      locale: 'en',
-      hide_top_toolbar: false,
-      hide_side_toolbar: false,
-      withdateranges: true,
-      backgroundColor: theme === 'dark' ? '#0f0f0f' : '#ffffff',
-      gridColor: theme === 'dark' ? '#2a2e39' : 'rgba(46, 46, 46, 0.06)',
-    };
-
-    script.innerHTML = JSON.stringify(config);
     containerEl.appendChild(script);
 
     return () => {
@@ -39,14 +47,8 @@ function TradingViewWidget() {
   }, [theme]);
 
   return (
-    <div
-      className="tradingview-widget-container w-full h-full min-h-[300px]"
-      ref={container}
-    >
-      <div
-        className="tradingview-widget-container__widget"
-        style={{ width: '100%', height: '100%' }}
-      />
+    <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }}>
+      <div className="tradingview-widget-container__widget" style={{ height: "calc(100% - 32px)", width: "100%" }}></div>
     </div>
   );
 }
