@@ -1,18 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
-    content: [
+  content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",'./index.html',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        tradingview: ['Poppins', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
-
-
-
-
-
-

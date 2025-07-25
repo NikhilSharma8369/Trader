@@ -8,21 +8,18 @@ import MarketPage from "./pages/MarketPage";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/dashboard" element={<TradingDashboard />}>
-        <Route index element={<Positions />} />
-        <Route  path="/dashboard/pending" element={<Pending />} />
-        <Route  path="/dashboard/history" element={<History/>} />
-      </Route>
-      <Route path="/market" element={<MarketPage />} />
-      
-    </Routes>
+    <div className="font-tradingview">  {/* ✅ Font wrapper */}
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashboard" element={<TradingDashboard />}>
+          <Route index element={<Positions />} />
+          <Route path="/dashboard/pending" element={<Pending />} />
+          <Route path="/dashboard/history" element={<History />} />
+        </Route>
+        <Route path="/market" element={<MarketPage />} />
+      </Routes>
+    </div>
   );
 };
-
-
-
-
 
 export default App;

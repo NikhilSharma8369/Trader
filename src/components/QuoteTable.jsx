@@ -66,11 +66,12 @@ export default function QuoteTable({ onNewOrder, onOpenPMC }) {
   return (
     <div
       ref={tableRef}
-      className="relative bg-white dark:bg-zinc-900 text-black dark:text-white text-sm p-4 border-l border-gray-300 dark:border-zinc-700 w-[300px] "
+      className="relative bg-white dark:bg-zinc-900 text-black dark:text-white text-sm p-4 border-l border-gray-300 dark:border-zinc-700 w-full sm:w-[300px] overflow-x-auto"
       onContextMenu={handleRightClick}
     >
       <TopMenu />
-      <table className="w-full text-left mt-6  cursor-pointer">
+
+      <table className="w-full text-left mt-6 cursor-pointer">
         <thead>
           <tr className="text-gray-600 dark:text-gray-300 text-sm">
             <th className="px-2 pb-2">Symbol</th>
@@ -83,7 +84,7 @@ export default function QuoteTable({ onNewOrder, onOpenPMC }) {
             rows.map((_, index) => (
               <tr
                 key={index}
-                className="border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-zinc-800 "
+                className="border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-zinc-800"
               >
                 <td className="px-2 py-2 align-top">
                   <div className="text-xs text-gray-400">13.66</div>
@@ -106,10 +107,15 @@ export default function QuoteTable({ onNewOrder, onOpenPMC }) {
         </tbody>
       </table>
 
+      {/* Context Menu */}
       {!hideMenuOptions && menuPos && (
         <div
-          className="absolute z-50 bg-white dark:bg-zinc-900 text-black dark:text-white border border-gray-300 dark:border-zinc-700 rounded shadow-md w-64 text-sm"
-          style={{ top: `${menuPos.y}px`, left: `${menuPos.x}px` }}
+          className="absolute z-50 bg-white dark:bg-zinc-900 text-black dark:text-white border border-gray-300 dark:border-zinc-700 rounded shadow-lg w-64 text-sm"
+          style={{
+            top: `${menuPos.y}px`,
+            left: `${menuPos.x}px`,
+            maxWidth: "90vw"
+          }}
         >
           {menuOptions.map((opt, i) => (
             <div
