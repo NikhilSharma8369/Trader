@@ -53,7 +53,7 @@ export default function TradingDashboard() {
           <div className="w-[350px] divide-y divide-gray-300 dark:divide-gray-500 p-4 bg-gray-100 dark:bg-zinc-900 space-y-4 border-l border-gray-300 dark:border-zinc-800">
             <div className="p-2">
               <div className="text-sm font-medium">XAUUSD</div>
-              <div className="flex justify-between text-[13px] text-gray-600 dark:text-zinc-500">
+              <div className="flex justify-between text-[13px] text-black dark:text-white">
                 <h1>Gold & Dollar</h1>
                 <h1 className="flex gap-x-1">Metal <ChevronDown className="size-3" /></h1>
               </div>
@@ -78,17 +78,17 @@ export default function TradingDashboard() {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-gray-600 dark:text-zinc-400 mb-1">Volume</label>
+                  <label className="block text-xs text-black dark:text-white mb-1">Volume</label>
                   <input className="bg-gray-200 dark:bg-zinc-800 w-full p-2 rounded text-black dark:text-white text-sm" defaultValue="0.01" />
                 </div>
 
                 <div className="flex gap-2">
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 dark:text-zinc-400 mb-1">Take Profit</label>
+                    <label className="block text-xs text-black dark:text-white mb-1">Take Profit</label>
                     <input className="bg-gray-200 dark:bg-zinc-800 w-full p-2 rounded text-black dark:text-white text-sm" />
                   </div>
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 dark:text-zinc-400 mb-1">Stop Loss</label>
+                    <label className="block text-xs text-black dark:text-white mb-1">Stop Loss</label>
                     <input className="bg-gray-200 dark:bg-zinc-800 w-full p-2 rounded text-black dark:text-white text-sm" />
                   </div>
                 </div>
@@ -116,7 +116,7 @@ export default function TradingDashboard() {
                 <NavLink to="/dashboard/history" className={({ isActive }) => (isActive ? "text-blue-600 font-bold" : "text-gray-600 dark:text-gray-400")}>History</NavLink>
               </div>
             </div>
-            <div className="flex gap-x-6 text-gray-600 dark:text-zinc-400">
+            <div className="flex gap-x-6 text-black dark:text-white ">
               <div>Balance <br /><span className="text-black dark:text-white">U$$10066.3</span></div>
               <div>Equity <br /><span className="text-black dark:text-white">U$$10066.3</span></div>
               <div>Margin <br /><span className="text-black dark:text-white">U$$6.70</span></div>

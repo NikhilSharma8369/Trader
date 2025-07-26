@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import SymbolMenu from './SymbolMenu';
+import NewOrder from './NewOrder';
 
 export const Positions = () => {
   const [symbolMenuPos, setSymbolMenuPos] = useState(null);
+  const [showOrderModal, setShowOrderModal] = useState(false);
+
+  const handleOpenNewOrder = () => {
+    setShowOrderModal(true);
+    setSymbolMenuPos(null); 
+  };
 
   return (
     <>
-      <table className="w-full h-[170px] relative text-left text-zinc-500">
-        <thead className="text-zinc-400 border-b border-zinc-700">
+      <table className="w-full h-[170px] relative text-left text-black dark:text-white">
+        <thead className="border-b border-zinc-700">
           <tr>
             <th
               className="py-2 relative cursor-pointer"
@@ -47,7 +54,15 @@ export const Positions = () => {
         </tbody>
       </table>
 
-      <SymbolMenu pos={symbolMenuPos} onClose={() => setSymbolMenuPos(null)} />
+    
+      <SymbolMenu
+        pos={symbolMenuPos}
+        onClose={() => setSymbolMenuPos(null)}
+        onNewOrder={handleOpenNewOrder}
+      />
+
+     
+      {showOrderModal && <NewOrder onClose={() => setShowOrderModal(false)} />}
     </>
   );
 };

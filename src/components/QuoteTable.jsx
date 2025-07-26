@@ -86,20 +86,20 @@ export default function QuoteTable({ onNewOrder, onOpenPMC }) {
                 className="border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-zinc-800 "
               >
                 <td className="px-2 py-2 align-top">
-                  <div className="text-xs text-gray-400">13.66</div>
+                  <div className="text-xs text-black dark:text-white">13.66</div>
                   <div className="flex items-center gap-1 font-semibold">
                     <span>XAUUSD</span>
                     <span className="text-green-400 text-xs">📈</span>
-                    <span className="text-xs text-gray-400">17</span>
+                    <span className="text-xs text-black dark:text-white">17</span>
                   </div>
                 </td>
                 <td className={`px-2 py-2 align-top text-right font-semibold ${index % 2 === 0 ? "text-green-400" : "text-red-500"}`}>
                   3352.<span className="text-[15px]">34</span>
-                  <div className="text-xs text-gray-400">L:1331.34</div>
+                  <div className="text-xs text-black dark:text-white">L:1331.34</div>
                 </td>
                 <td className="px-2 py-2 align-top text-right font-semibold text-black dark:text-white">
                   3352.<span className="text-[15px]">34</span>
-                  <div className="text-xs text-gray-400">L:1332.30</div>
+                  <div className="text-xs text-black dark:text-white">L:1332.30</div>
                 </td>
               </tr>
             ))}

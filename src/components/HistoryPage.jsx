@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import { HistoryMenu } from "../components/HistoryMenu";
+import NewOrder from './NewOrder';
 
 export const History = () => {
   const [menuPosition, setMenuPosition] = useState(null);
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const [showNewOrder, setShowNewOrder] = useState(false);
 
   const handleRightClick = (e) => {
     e.preventDefault();
@@ -13,6 +15,11 @@ export const History = () => {
   const closeMenu = () => {
     setMenuPosition(null);
     setShowSubmenu(false);
+  };
+
+   const handleNewOrderClick = () => {
+    setShowNewOrder(true);     // Show the NewOrder modal
+    handleCloseMenu();         // Close the context menu
   };
 
   return (
@@ -75,7 +82,12 @@ export const History = () => {
           onClose={closeMenu}
           onColumnHover={setShowSubmenu}
           showSubmenu={showSubmenu}
+          onNewOrderClick={handleNewOrderClick}
         />
+      )}
+
+      {showNewOrder && (
+        <NewOrder onClose={() => setShowNewOrder(false)} initialTab="new" />
       )}
     </div>
   );

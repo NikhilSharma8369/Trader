@@ -8,7 +8,7 @@ import MarketPage from "./pages/MarketPage";
 
 const App = () => {
   return (
-    <div className="font-tradingview">  {/* ✅ Font wrapper */}
+    <div className= "text-white dark:text-black">  
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<TradingDashboard />}>

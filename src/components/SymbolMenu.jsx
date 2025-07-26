@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function SymbolMenu({ pos, onClose }) {
+export default function SymbolMenu({ pos, onClose, onNewOrder }) {
   const [showSubmenu, setShowSubmenu] = useState(false);
 
   if (!pos) return null;
@@ -12,7 +12,13 @@ export default function SymbolMenu({ pos, onClose }) {
       onMouseLeave={onClose}
     >
       <ul className="text-sm select-none">
-        <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer">
+        <li
+          className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer"
+          onClick={() => {
+            onNewOrder?.(); 
+            onClose(); 
+          }}
+        >
           New Order
         </li>
         <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer">

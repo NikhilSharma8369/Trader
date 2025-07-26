@@ -1,6 +1,7 @@
+
 import React from "react";
 
-export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu }) => {
+export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu, onNewOrderClick }) => {
   const mainOptions = [
     "New Order", "Positions", "Deals", "Orders", "Orders & Deals", "Today",
     "Last 3 Days", "Last Week", "Last Month", "Last 3 Months", "Last 6 Months",
@@ -9,7 +10,6 @@ export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu }) => {
 
   const columnOptions = ["Ticket", "Open Time", "Close Time", "Commission", "Fee", "Swap", "Comment"];
 
- 
   const menuHeight = 480;
   const adjustedY = y - menuHeight < 10 ? 10 : y - menuHeight;
 
@@ -26,6 +26,12 @@ export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu }) => {
             className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 cursor-pointer relative"
             onMouseEnter={() => item === "Columns" && onColumnHover(true)}
             onMouseLeave={() => item === "Columns" && onColumnHover(false)}
+            onClick={() => {
+              if (item === "New Order") {
+                onNewOrderClick("new"); 
+                onClose();
+              }
+            }}
           >
             {item}
 

@@ -16,7 +16,7 @@ export const Pending = () => {
       : '—';
 
   return (
-    <div className="p-4 h-[170px]">
+    <div className="p-4 h-[170px] ">
       <h2 className="font-semibold mb-2">Pending Orders</h2>
       <div className="flex flex-wrap gap-x-6 text-sm">
         <span>
