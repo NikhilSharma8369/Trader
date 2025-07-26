@@ -1,4 +1,3 @@
-
 import React from "react";
 
 export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu, onNewOrderClick }) => {
@@ -10,13 +9,16 @@ export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu, onNewOr
 
   const columnOptions = ["Ticket", "Open Time", "Close Time", "Commission", "Fee", "Swap", "Comment"];
 
-  const menuHeight = 480;
-  const adjustedY = y - menuHeight < 10 ? 10 : y - menuHeight;
+  // Force the menu to appear 100px from top, and prevent it from going off-screen horizontally
+  const menuWidth = 208; // Tailwind w-52
+  const windowWidth = window.innerWidth;
+  const adjustedX = x + menuWidth > windowWidth ? windowWidth - menuWidth - 10 : x;
+  const fixedTop = 100; // Force top to 100px always
 
   return (
     <div
-      className="absolute z-50 text-sm text-black dark:text-white bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded shadow-lg w-52"
-      style={{ top: adjustedY, left: x }}
+      className="fixed z-50 text-sm text-black dark:text-white bg-white dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 rounded shadow-lg w-52"
+      style={{ top: fixedTop, left: adjustedX }}
       onMouseLeave={onClose}
     >
       <ul>
@@ -28,7 +30,7 @@ export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu, onNewOr
             onMouseLeave={() => item === "Columns" && onColumnHover(false)}
             onClick={() => {
               if (item === "New Order") {
-                onNewOrderClick("new"); 
+                onNewOrderClick("new");
                 onClose();
               }
             }}
@@ -36,7 +38,7 @@ export const HistoryMenu = ({ x, y, onClose, onColumnHover, showSubmenu, onNewOr
             {item}
 
             {item === "Columns" && showSubmenu && (
-              <ul className="absolute -top-[150px] left-full ml-1 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded shadow-md w-40 z-50">
+              <ul className="absolute -top-[220px] left-full ml-1 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded shadow-md w-40 z-50">
                 {columnOptions.map((col) => (
                   <li
                     key={col}
